@@ -6,7 +6,7 @@ import { Question, QuestionType } from "./interfaces/question";
  * that are `published`.
  */
 export function getPublishedQuestions(questions: Question[]): Question[] {
-    return [];
+    return questions.filter((question) => question.published);
 }
 
 /**
@@ -15,7 +15,17 @@ export function getPublishedQuestions(questions: Question[]): Question[] {
  * `expected`, and an empty array for its `options`.
  */
 export function getNonEmptyQuestions(questions: Question[]): Question[] {
-    return [];
+    return questions.filter((question) => {
+        const isBodyAndExpEmpty =
+            question.body === "" && question.expected === "";
+        let isOptionsFull: boolean;
+        if (question.type === "multiple_choice_question") {
+            isOptionsFull = question.options.length > 0;
+        } else {
+            isOptionsFull = true;
+        }
+        return !isBodyAndExpEmpty && isOptionsFull;
+    });
 }
 
 /***
