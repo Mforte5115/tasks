@@ -54,12 +54,7 @@ export function findQuestion(
     const found = questions.find(
         (question: Question): boolean => question.id === id
     );
-    return found
-        ? {
-              ...found,
-              options: [...found.options]
-          }
-        : null;
+    return found ? { ...found, options: [...found.options] } : null;
 }
 
 /**
